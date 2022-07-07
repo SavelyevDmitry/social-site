@@ -1,0 +1,17 @@
+.posts__list {
+  margin: 0;
+  padding: 0;
+  padding-left: 20px;
+
+  list-style-type: none;
+}
+
+.posts__item {
+  background-color: white;
+
+  border-radius: 5px;
+}
+
+.posts__item:not(:last-child) {
+  margin-bottom: 20px;
+}

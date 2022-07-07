@@ -1,0 +1,44 @@
+.post {
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.post__avatar-wrap {
+  margin-bottom: 20px;
+
+  display: flex;
+  align-items: center;
+}
+
+.post__avatar {
+  margin-right: 20px;
+
+  width: 40px;
+  height: 40px;
+
+  border-radius: 50%;
+}
+
+.post__who {
+  margin: 0;
+
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.post__info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.post__desc {
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.post__btn--like {
+  padding: 10px 30px;
+}
