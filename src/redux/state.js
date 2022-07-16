@@ -1,3 +1,7 @@
+import dialogsReducer from "./dialogs-reduces";
+import navbarReducer from "./navbar-reducer";
+import profileReducer from "./profile-reducer";
+
 const store = {
   _state: {
     navbar: {
@@ -10,7 +14,7 @@ const store = {
       ]
     },
     content: {
-      profile: {
+      profilePage: {
         posts: [
           { id: 1, message: "Привет, я тут!", who: "Дмитрий Савельев", likeCounter: 5 },
           { id: 2, message: "Это мой первый проект на React", who: "Дмитрий Савельев", likeCounter: 8 },
@@ -18,32 +22,44 @@ const store = {
           { id: 4, message: "Hello World!", who: "Дмитрий Савельев", likeCounter: 9 }
         ],
         newPostText: '',
+      },
+      dialogsPage: {
+        dialogs: [
+          { id: 1, personName: "Dmitry Ivanov" },
+          { id: 2, personName: "Marina Petrova" },
+          { id: 3, personName: "Ivan Dmitriev" },
+          { id: 4, personName: "Kirill Akimov" },
+          { id: 5, personName: "Sergey Novikov" },
+        ],
+        messages: [
+          { id: 1, body: "Hi!" },
+          { id: 2, body: "How are you?" },
+          { id: 3, body: "I'm Fine!" },
+          { id: 4, body: "Thank you" },
+        ],
+        newMessageText: '',  
       }
     }
-  },
-  getState() {
-    return this._state;
   },
   _callSubscrider() {
     console.log("render page");
   },
+
+  getState() {
+    return this._state;
+  },
   subscribe(observer) {
     this._callSubscrider = observer;
   },
-  addNewPost() {
-    this._state.content.profile.posts.push({
-      id: this._state.content.profile.posts[this._state.content.profile.posts.length - 1].id + 1,
-      message: this._state.content.profile.newPostText,
-      who: "Дмитрий Савельев",
-      likeCounter: 0
-    })
-    this._state.content.profile.newPostText = '';
+
+  dispatch(action) {
+
+    this._state.navbar = navbarReducer(this._state.navbar, action);
+    this._state.content.profilePage = profileReducer(this._state.content.profilePage, action);
+    this._state.content.dialogsPage = dialogsReducer(this._state.content.dialogsPage, action);
+
     this._callSubscrider();
-  },
-  updateNewPostText(text) {
-    this._state.content.profile.newPostText = text;
-    this._callSubscrider();
-  },
+  }
 }
 
 export default store;

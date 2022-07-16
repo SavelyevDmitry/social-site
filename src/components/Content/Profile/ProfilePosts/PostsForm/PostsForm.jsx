@@ -1,18 +1,18 @@
 import React from "react";
+
 import './PostsForm.css'
 
 const PostsForm = (props) => {
-  const newPostElement = React.useRef(null);
-
   function addPost(e) {
     e.preventDefault();
-    props.addNewPost();
+
+    props.addPost();
   }
   
-  function updateNewMessageText() {
-    const currentText = newPostElement.current.value;
-    console.log(currentText);
-    props.updateNewMessageText(currentText);
+  function updateNewMessageText(e) {
+    const newText = e.target.value;
+
+    props.updateNewMessageText(newText);
   }
 
   return (
@@ -21,9 +21,8 @@ const PostsForm = (props) => {
       <form action="" onSubmit={addPost} className="posts-form__form">
         <textarea 
           name="message" 
-          className="posts-form__message" 
+          className="form-text-input posts-form__message" 
           value = { props.newPostText } 
-          ref = { newPostElement }
           onChange = { updateNewMessageText } 
         />
         <button type="submit" className="btn posts-form__btn">Submit</button>

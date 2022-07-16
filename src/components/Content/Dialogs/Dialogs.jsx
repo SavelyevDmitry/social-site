@@ -1,14 +1,15 @@
 import React from "react";
-import DialogList from "./DialogList/DialogList";
+import DialogListContainer from "./DialogList/DialogListContainer";
 import DialogMessages from "./DialogMessages/DialogMessages";
+import DialogMessagesContainer from "./DialogMessages/DialogMessagesContainer";
 
 import './Dialogs.css'
 
-const Dialogs = () => {
+const Dialogs = (props) => {
   return (
     <div className="content__dialogs dialogs">
-      <DialogList />
-      <DialogMessages />
+      <DialogListContainer />
+      <DialogMessagesContainer />
     </div>
   )
 }

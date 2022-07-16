@@ -33,3 +33,19 @@
 
   border-radius: 8px;
 }
+
+.form-text-input {
+  padding: 10px;
+  margin-right: 10px;
+
+  width: 85%;
+  min-height: 120px;
+
+  outline: none;
+  border: none;
+  resize: none;
+
+  border: 1px solid rgb(72, 136, 255);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.404);
+  border-radius: 5px;
+}

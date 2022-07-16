@@ -1,0 +1,27 @@
+.dialogs-messages {
+  padding: 20px;
+}
+
+.dialogs-messages__list {
+  padding: 0;
+  margin: 0;
+
+  list-style-type: none;
+}
+
+.dialogs-messages__item {
+  padding: 5px;
+
+  font-size: 18px;
+
+  border-radius: 10px;
+  border: 1px solid lightgray;
+}
+
+.dialogs-messages__item:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.dialogs-messages__item:last-child {
+  margin-bottom: 40px;
+}

@@ -1,10 +1,22 @@
 import React from "react";
+import DialogItem from "./DialogItem/DialogItem";
 
-const DialogList = () => {
+import './DialogList.css'
+
+const DialogList = (props) => {
+
+  const dialogElements = props.dialogs.map( dialog =>  
+    <DialogItem 
+      key = { dialog.id } 
+      personName = { dialog.personName } 
+      id = { dialog.id } 
+    />
+  )
+
   return (
-    <div className="dialogs__list dislogs-list">
-      <h2>DialogList</h2>
-    </div>
+    <ul className="dialogs__list dialogs-list">
+      { dialogElements }
+    </ul>
   )
 }
 

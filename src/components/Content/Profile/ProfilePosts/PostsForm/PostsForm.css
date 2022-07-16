@@ -3,22 +3,11 @@
 }
 
 .posts-form__message {
-  padding: 10px;
-  margin-right: 10px;
 
-  width: 80%;
-  min-height: 120px;
-
-  outline: none;
-  border: none;
-  resize: none;
-
-  border: 1px solid rgb(72, 136, 255);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.404);
-  border-radius: 5px;
 }
 
 .posts-form__form {
   display: flex;
   align-items: flex-end;
+  justify-content: space-between;
 }

@@ -1,13 +1,19 @@
 .dialogs {
-  display: grid;
-  grid-template-columns: 3fr 9fr;
-  grid-column-gap: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .dialogs__list {
-  width: 25%;
-}
+  margin-right: 10px;
 
+  min-width: 20%;
+
+  background-color: white;
+  border-radius: 5px;
+}
 .dialogs__messages {
-  width: 65%;
+  width: 73%;
+
+  background-color: white;
+  border-radius: 5px;
 }

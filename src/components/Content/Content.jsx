@@ -7,22 +7,19 @@ import Music from "./Music/Music";
 import News from "./News/News";
 import Profile from "./Profile/Profile";
 import Settings from "./Settings/Settings";
+import UsersContainer from "./Users/UsersContainer";
 
-const Content = (props) => {
+const Content = () => {
+
   return (
     <div className="main__content content">
       <Routes> 
         <Route path = '' element = { <Information /> } />
-        <Route path = '/profile' element = { 
-          <Profile 
-            state = { props.state.profile } 
-            addNewPost = { props.addNewPost } 
-            updateNewMessageText = { props.updateNewMessageText }
-          /> 
-        } />
-        <Route path = '/dialogs' element = { <Dialogs /> } />
+        <Route path = '/profile' element = { <Profile /> } />
+        <Route path = '/dialogs/*' element = { <Dialogs /> } />
         <Route path = '/music' element = { <Music /> } />
         <Route path = '/news' element = { <News /> } />
+        <Route path = '/users' element = { <UsersContainer /> } />
         <Route path = '/settings' element = { <Settings /> } />
       </Routes>
     </div>

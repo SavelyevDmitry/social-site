@@ -4,19 +4,21 @@ import App from './App';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import store from './redux/state.js';
+// import store from './redux/state.js';
+import store from './redux/store';
+import { Provider } from 'react-redux';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-function appRender() {
-  root.render(
+root.render(
+  <Provider store = { store } >
     <App  
       state = { store.getState() } 
-      addNewPost = { store.addNewPost.bind(store) } 
-      updateNewPostText = { store.updateNewPostText.bind(store) }
+      dispatch = { store.dispatch.bind(store) }
     />
-  );
-}
+  </Provider>
+);
 
-store.subscribe(appRender);
-appRender();
+
+// store.subscribe(appRender);
+// appRender();
