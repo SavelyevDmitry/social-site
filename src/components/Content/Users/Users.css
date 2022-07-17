@@ -1,0 +1,26 @@
+.users__list {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 20px;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  list-style-type: none;
+}
+
+.users__item {
+  padding: 20px;
+
+  width: 45%;
+
+  border-radius: 10px;
+  background-color: white;
+}
+
+.users__item:not(:last-child),
+.users__item:not(:nth-last-child(2)) {
+  margin-bottom: 20px;
+}
+

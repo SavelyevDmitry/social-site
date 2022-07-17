@@ -1,0 +1,44 @@
+.user {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user__avatar-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 25%;
+}
+
+.user__info-wrap {
+  width: 75%;
+}
+
+.user__avatar {
+  margin-bottom: 10px;
+
+  width: 100%;
+}
+
+.user__name {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 10px;
+
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.user__name span {
+  display: inline-block;
+  width: 100%;
+}
+
+.user__photo {
+  border-radius: 50%;
+  max-width: 100%;
+  max-height: 100%;
+}

@@ -1,25 +1,38 @@
 import React from "react";
-
+import { useEffect } from "react";
 import * as axios from "axios"
 
 import User from "./User/User";
-import { useEffect } from "react";
+import './Users.css'
+import UsersPagination from "./UsersPagination/UsersPagination";
+import UsersList from "./UsersList/UsersList";
+
 
 const Users = (props) => {
+
   const getUsers = () => {
-    axios.get("https://social-network.samuraijs.com/api/1.0/users").then(data => props.setUsers(data.data.items));
+    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.currentPage}&count=${props.pageSize}`).then(data => props.setUsers(data.data.items));
+    
+    return function clearUsers() {
+      props.clearUsers();
+    }
   }
 
   useEffect(getUsers, []);
 
-  const usersElements = props.users.map( user => <User key={user.id} userName = { user.name } />)
+  const usersElements = props.users.map( user => 
+    <User 
+      key = { user.id } 
+      user = { user }
+      follow = { props.follow }
+      unfollow = { props.unfollow }
+    />
+  )
 
   return (
     <section className="users">
-      <ul className="users__list users-list">
-        { usersElements }
-      </ul>
-      <button className="btn users__show-more" onClick={getUsers}>Show more</button>
+      <UsersPagination />
+      <UsersList usersElements = { usersElements }/>
     </section>
   )
 }
