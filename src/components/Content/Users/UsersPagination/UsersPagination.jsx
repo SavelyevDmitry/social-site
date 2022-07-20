@@ -1,8 +1,8 @@
 import React from "react";
 
-const UsersPagination = () => {
+const UsersPagination = (props) => {
   return (
-    <h2>Pagination</h2>
+    <h2>Paginations</h2>
   )
 }
 

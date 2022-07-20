@@ -7,7 +7,7 @@ import Music from "./Music/Music";
 import News from "./News/News";
 import Profile from "./Profile/Profile";
 import Settings from "./Settings/Settings";
-import UsersContainer from "./Users/UsersContainer";
+import Users from "./Users/Users";
 
 const Content = () => {
 
@@ -19,7 +19,7 @@ const Content = () => {
         <Route path = '/dialogs/*' element = { <Dialogs /> } />
         <Route path = '/music' element = { <Music /> } />
         <Route path = '/news' element = { <News /> } />
-        <Route path = '/users' element = { <UsersContainer /> } />
+        <Route path = '/users' element = { <Users /> } />
         <Route path = '/settings' element = { <Settings /> } />
       </Routes>
     </div>

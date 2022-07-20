@@ -5,16 +5,15 @@ const UNFOLLOW = 'UNFOLLOW';
 
 const initialState = {
   users: [],
-  pageSize: 8,
+  pageSize: 20,
   totalUsersCount: 0,
-  currentPage: 102
+  currentPage: 1
 }
 
 const usersReducer = (state = initialState, action) => {
   switch (action.type) {
 
     case SET_USERS: 
-    console.log(action.users);
       return {
         ...state,
         users: [ ...state.users, ...action.users ]
@@ -50,19 +49,19 @@ const usersReducer = (state = initialState, action) => {
   }
 }
 
-export const setUsersActionCreator = (users) => (
+export const setUsers= (users) => (
   { type: SET_USERS, users} 
 )
 
-export const clearUsersActionCreator = () => (
+export const clearUsers = () => (
   { type: CLEAR_USERS }
 )
 
-export const followActionCreator = (userId) => (
+export const follow = (userId) => (
   { type: FOLLOW, userId }
 )
 
-export const unfollowActionCreator = (userId) => (
+export const unfollow = (userId) => (
   { type: UNFOLLOW, userId }
 )
 
