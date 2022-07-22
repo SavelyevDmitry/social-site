@@ -6,13 +6,14 @@ import Header from './components/Header/Header';
 import NavBar from './components/NavBar/NavBar';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import NavBarContainer from './components/NavBar/NavBarContainer';
+import HeaderContainer from './components/Header/HeaderContainer';
 
 function App(props) {
 
   return (
     <div className="App">
       <BrowserRouter>
-        <Header />
+        <HeaderContainer />
         <main className="main container">
           {/* <NavBar state = { props.state.navbar } /> */}
           <NavBarContainer />

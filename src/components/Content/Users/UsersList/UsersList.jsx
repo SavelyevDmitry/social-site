@@ -8,14 +8,15 @@ const UsersList = (props) => {
       key = { user.id } 
       user = { user }
       follow = { props.follow }
-      unfollow = { props.unfollow }
+      setFollow = { props.setFollow }
+      setUnfollow = { props.setUnfollow }
     />
   )
 
   return(
     <ul className="users__list">
       { usersElements }
-  </ul>
+    </ul>
   )
 }
 

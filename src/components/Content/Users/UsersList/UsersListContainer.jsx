@@ -2,14 +2,30 @@ import axios from "axios";
 import React, { useEffect } from "react";
 
 import { connect } from "react-redux";
+import { UsersAPI } from "../../../../api/usersAPI";
 import { clearUsers, follow, setUsers, unfollow } from "../../../../redux/users-reducer";
 import UsersList from "./UsersList";
 
 const UsersListContainer = (props) => {
-  
+
+  const setFollow = (userId) => {
+    UsersAPI.setFollow(userId)
+      .then(resultCode => {
+        !resultCode ? props.follow(userId) : console.log(resultCode)
+      })
+  }
+
+  const setUnfollow = (userId) => {
+    UsersAPI.setUnfollow(userId)
+      .then(resultCode => {
+        !resultCode ? props.unfollow(userId) : console.log(resultCode)
+      })
+  }
+
   const getUsers = () => {
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.currentPage}&count=${props.pageSize}`).then(data => props.setUsers(data.data.items));
-    
+    UsersAPI.getUsers(props.currentPage, props.pageSize)
+      .then(data => props.setUsers(data.items))
+
     return function clearUsers() {
       props.clearUsers();
     }
@@ -18,7 +34,7 @@ const UsersListContainer = (props) => {
   useEffect(getUsers, []);
 
   return (
-    <UsersList { ...props }/>
+    <UsersList { ...props } setFollow = { setFollow } setUnfollow = { setUnfollow }/>
   )
 }
 

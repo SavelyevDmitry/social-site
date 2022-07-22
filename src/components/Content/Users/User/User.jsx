@@ -4,12 +4,13 @@ import './User.css'
 import avatarPhoto from './user-avatar.jpg'
 
 const User = (props) => {
+
   const follow = () => {
-    props.follow(props.user.id)
+    props.setFollow(props.user.id)
   }
 
   const unfollow = () => {
-    props.unfollow(props.user.id);
+    props.setUnfollow(props.user.id);
   }
 
   return (
@@ -26,9 +27,8 @@ const User = (props) => {
       </div>
 
       <div className="user__info-wrap">
-
+        status: { props.user.status ? props.user.status : "Status is missing"}
       </div>
-
     </li>
   )
 }
