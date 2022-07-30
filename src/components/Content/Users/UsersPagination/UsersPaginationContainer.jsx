@@ -1,10 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setCurrentPage, setUsers } from "../../../../redux/users-reducer";
+import { setCurrentPage, getUsers } from "../../../../redux/users-reducer";
 import UsersPagination from "./UsersPagination";
 
 const UsersPaginationContainer = (props) => {
-  return <UsersPagination {...props} />
+
+  const changePage = (newCurrentPage) => {
+    props.setCurrentPage(newCurrentPage);
+    props.getUsers(newCurrentPage, props.pageSize)
+  }
+
+  return <UsersPagination {...props} changePage = { changePage }/>
 }
 
 const mapStateToProps = (state) => {
@@ -14,4 +20,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { setCurrentPage, setUsers })(UsersPaginationContainer);
+export default connect(mapStateToProps, { setCurrentPage, getUsers })(UsersPaginationContainer);

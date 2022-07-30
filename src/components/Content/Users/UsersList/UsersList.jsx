@@ -1,8 +1,10 @@
 import React from "react";
+import Spinner from "../../../../assets/spinner/Spinner";
 
 import User from "../User/User";
 
 const UsersList = (props) => {
+
   const usersElements = props.users.map( user => 
     <User 
       key = { user.id } 
@@ -10,13 +12,18 @@ const UsersList = (props) => {
       follow = { props.follow }
       setFollow = { props.setFollow }
       setUnfollow = { props.setUnfollow }
+      usersInProgress = { props.usersInProgress }
+      toggleUserInProgress = { props.toggleUserInProgress }
     />
   )
 
-  return(
-    <ul className="users__list">
-      { usersElements }
-    </ul>
+  return (
+    <>
+    { props.isLoading 
+      ? <Spinner /> 
+      : <ul className="users__list"> { usersElements } </ul> 
+    }
+    </>
   )
 }
 

@@ -1,40 +1,18 @@
-import axios from "axios";
 import React, { useEffect } from "react";
 
 import { connect } from "react-redux";
-import { UsersAPI } from "../../../../api/usersAPI";
-import { clearUsers, follow, setUsers, unfollow } from "../../../../redux/users-reducer";
+import { toggleUserInProgress, getUsers, setFollow, setUnfollow } from "../../../../redux/users-reducer";
 import UsersList from "./UsersList";
 
 const UsersListContainer = (props) => {
-
-  const setFollow = (userId) => {
-    UsersAPI.setFollow(userId)
-      .then(resultCode => {
-        !resultCode ? props.follow(userId) : console.log(resultCode)
-      })
+  const getInitialUsers = () => {
+    props.getUsers(props.currentPage, props.pageSize);
   }
 
-  const setUnfollow = (userId) => {
-    UsersAPI.setUnfollow(userId)
-      .then(resultCode => {
-        !resultCode ? props.unfollow(userId) : console.log(resultCode)
-      })
-  }
-
-  const getUsers = () => {
-    UsersAPI.getUsers(props.currentPage, props.pageSize)
-      .then(data => props.setUsers(data.items))
-
-    return function clearUsers() {
-      props.clearUsers();
-    }
-  }
-
-  useEffect(getUsers, []);
+  useEffect(getInitialUsers, []);
 
   return (
-    <UsersList { ...props } setFollow = { setFollow } setUnfollow = { setUnfollow }/>
+    <UsersList { ...props } setFollow = { props.setFollow } setUnfollow = { props.setUnfollow }/>
   )
 }
 
@@ -44,7 +22,11 @@ const mapStateToProps = (state) => {
     pageSize: state.usersPage.pageSize,
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
+    usersInProgress: state.usersPage.usersInProgress,
+    isLoading: state.usersPage.isLoading
   }
 }
 
-export default connect(mapStateToProps, { setUsers, clearUsers, follow, unfollow })(UsersListContainer);;
+export default connect(mapStateToProps, 
+  { toggleUserInProgress, 
+    getUsers, setFollow, setUnfollow })(UsersListContainer);

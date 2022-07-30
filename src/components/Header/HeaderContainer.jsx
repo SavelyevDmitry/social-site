@@ -1,23 +1,30 @@
 import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import { authAPI } from "../../api/authAPI";
+import { setUserAuth } from "../../redux/auth-reducer";
 import Header from "./Header";
 import './Header.css';
 
 const HeaderContainer = (props) => {
-  let resultCode = null;
-  let user = null;
 
   const authMe = () => {
     authAPI.AuthMe()
     .then(data => {
-      resultCode = data.resultCode;
-      user = data.user;
+      if (!data.resultCode) {
+        props.setUserAuth(data.user);
+      }
     })
   }
 
   useEffect(authMe, []);
 
-  return <Header user = { user } resultCode = { resultCode }/>
+  return <Header {...props}/>
 }
 
-export default HeaderContainer;
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user,
+  }
+}
+
+export default connect(mapStateToProps, { setUserAuth })(HeaderContainer);

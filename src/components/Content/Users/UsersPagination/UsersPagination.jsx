@@ -4,12 +4,6 @@ import "./UsersPagination.css";
 
 const UsersPagination = (props) => {
 
-  const changePage = (newCurrentPage) => {
-    props.setCurrentPage(newCurrentPage);
-    UsersAPI.getUsers(newCurrentPage, props.pageSize)
-      .then(data => props.setUsers(data.items))
-  }
-
   const pagesCount = 10;
   let paginationButtons = [];
 
@@ -19,7 +13,7 @@ const UsersPagination = (props) => {
 
   paginationButtons = paginationButtons.map(number => 
     <button className = { props.currentPage === number ? "pagination__button pagination__button--active" : "pagination__button" } 
-      onClick={() => changePage(number) }
+      onClick={() => props.changePage(number) }
       key = { number }
     > {number} </button>)
 

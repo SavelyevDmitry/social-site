@@ -6,12 +6,14 @@ import avatarPhoto from './user-avatar.jpg'
 const User = (props) => {
 
   const follow = () => {
-    props.setFollow(props.user.id)
+    props.setFollow(props.user.id);
   }
 
   const unfollow = () => {
     props.setUnfollow(props.user.id);
   }
+
+  console.log();
 
   return (
     <li className="users__item user">
@@ -23,7 +25,12 @@ const User = (props) => {
         <p className="user__name">
           { props.user.name }
         </p>
-        <button className="btn users__followed-btn" onClick={ props.user.followed ? unfollow : follow }> { props.user.followed ? "Unfollow" : "Follow" } </button>
+        <button className="btn users__followed-btn" 
+          disabled = { props.usersInProgress.some(id => id === props.user.id) }
+          onClick={ props.user.followed ? unfollow : follow }
+        > 
+          { props.user.followed ? "Unfollow" : "Follow" } 
+        </button>
       </div>
 
       <div className="user__info-wrap">
