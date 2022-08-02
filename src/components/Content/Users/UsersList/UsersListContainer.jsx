@@ -12,7 +12,7 @@ const UsersListContainer = (props) => {
   useEffect(getInitialUsers, []);
 
   return (
-    <UsersList { ...props } setFollow = { props.setFollow } setUnfollow = { props.setUnfollow }/>
+    <UsersList { ...props }/>
   )
 }
 
@@ -28,5 +28,4 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, 
-  { toggleUserInProgress, 
-    getUsers, setFollow, setUnfollow })(UsersListContainer);
+  { toggleUserInProgress, getUsers, setFollow, setUnfollow })(UsersListContainer);

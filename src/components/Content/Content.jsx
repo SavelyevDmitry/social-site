@@ -15,7 +15,7 @@ const Content = () => {
     <div className="main__content content">
       <Routes> 
         <Route path = '' element = { <Information /> } />
-        <Route path = '/profile' element = { <Profile /> } />
+        <Route path = '/profile/:userId' element = { <Profile /> } />
         <Route path = '/dialogs/*' element = { <Dialogs /> } />
         <Route path = '/music' element = { <Music /> } />
         <Route path = '/news' element = { <News /> } />

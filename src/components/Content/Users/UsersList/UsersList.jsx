@@ -1,7 +1,7 @@
 import React from "react";
 import Spinner from "../../../../assets/spinner/Spinner";
 
-import User from "../User/User";
+import User from "./User/User";
 
 const UsersList = (props) => {
 
@@ -9,11 +9,9 @@ const UsersList = (props) => {
     <User 
       key = { user.id } 
       user = { user }
-      follow = { props.follow }
       setFollow = { props.setFollow }
       setUnfollow = { props.setUnfollow }
       usersInProgress = { props.usersInProgress }
-      toggleUserInProgress = { props.toggleUserInProgress }
     />
   )
 

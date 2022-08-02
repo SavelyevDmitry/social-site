@@ -15,11 +15,8 @@
 }
 
 .pfofile-info__avatar-wrap {
-  width: 20%;
-}
-
-.pfofile-info__about {
-  width: 75%;
+  width: 250px;
+  max-width: 35%;
 }
 
 .pfofile-info__avatar {
@@ -28,8 +25,23 @@
   border-radius: 50%;
 }
 
+.profile-info__about-wrap {
+  display: flex;
+  flex-direction: column;
+
+  width: 60%;
+}
+
+.profile-info__about-title {
+  margin: 0;
+  margin-bottom: 10px;
+
+  font-size: 24px;
+}
+
 .pfofile-info__about {
   margin: 0;
 
+  font-size: 20px;
   line-height: 1.5;
 }

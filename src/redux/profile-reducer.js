@@ -1,7 +1,16 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const SET_PROFILE_INFO = 'SET-PROFILE-INFO';
 
 const initialState = {
+  profile: {
+    fullName: null,
+    photos: {
+      small: null,
+      large: null
+    },
+    aboutMe: null
+  },
   posts: [
     { id: 1, message: "Привет, я тут!", who: "Дмитрий Савельев", likeCounter: 5 },
     { id: 2, message: "Это мой первый проект на React", who: "Дмитрий Савельев", likeCounter: 8 },
@@ -35,6 +44,12 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         newPostText: action.newText
       };
+    
+      case SET_PROFILE_INFO:
+        return {
+          ...state,
+          profile: { ...action.profile }
+        }
 
     default:
       return state;
@@ -47,6 +62,10 @@ export const addPostActionCreator = () => (
 
 export const updateNewPostTextActionCreator = (newText) => (
   { type: UPDATE_NEW_POST_TEXT, newText: newText }
+)
+
+export const setProfileInfo = (profile) => (
+  { type: SET_PROFILE_INFO, profile }
 )
 
 export default profileReducer;
