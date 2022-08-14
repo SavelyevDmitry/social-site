@@ -45,3 +45,50 @@
   font-size: 20px;
   line-height: 1.5;
 }
+
+.profile-info__looking-job-title {
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.profile-info__looking-job {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.profile-info__looking-job-desc {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.profile-info__contacts-title {
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.profile-info__contacts-list {
+  margin: 0;
+  padding: 0;
+
+  list-style-type: none;
+}
+
+.profile-info__contacts-item {
+  margin-bottom: 10px;
+
+  display: flex;
+  align-items: center;
+}
+
+.profile-info__contacts-item-title {
+  margin: 0;
+
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.profile-info__contacts-item-desc {
+  margin: 0;
+
+  font-size: 16px;
+}

@@ -10,7 +10,7 @@ type NavbarStateType = {
 
 const initialState: NavbarStateType = {
   links: [
-    { id: 1, text: "Profile", link: "/profile" },
+    { id: 1, text: "Profile", link: "/profile/24954" },
     { id: 2, text: "Messages", link: "/dialogs" },
     { id: 3, text: "Music", link: "/music" },
     { id: 4, text: "News", link: "/news" },

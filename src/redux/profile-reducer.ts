@@ -2,12 +2,29 @@ const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_PROFILE_INFO = 'SET-PROFILE-INFO';
 
+type ContactsType = {
+  github: string | null
+  vk: string | null
+  facebook: string | null
+  instagram: string | null
+  twitter: string | null
+  website: string | null
+  youtube: string | null
+  mainLink: string | null
+}
+
+type PhotosType = {
+  small: string | null
+  large: string | null
+}
+
 type ProfileType = {
+  userId: number | null
+  lookingForAJob: boolean | null
+  lookingForAJobDescription: string | null
   fullName: string | null
-  photos: {
-    small: string | null
-    large: string | null
-  }
+  contacts: ContactsType
+  photos: PhotosType
   aboutMe: string | null
 }
 
@@ -26,7 +43,20 @@ type ProfileStateType = {
 
 const initialState: ProfileStateType = {
   profile: {
+    userId: null,
+    lookingForAJob: null,
+    lookingForAJobDescription: null,
     fullName: null,
+    contacts: {
+      github: null,
+      vk: null,
+      facebook: null,
+      instagram: null,
+      twitter: null,
+      website: null,
+      youtube: null,
+      mainLink: null
+    },
     photos: {
       small: null,
       large: null
