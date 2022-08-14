@@ -1,2 +1,2 @@
 # social-site
-Социальный сайт. React, Redux. (В разработке)
+Социальный сайт. React, Redux, TypeScript. (В разработке)
