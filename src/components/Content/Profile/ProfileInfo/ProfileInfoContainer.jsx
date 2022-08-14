@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams } from 'react-router-dom';
 import { profileAPI } from "../../../../api/profileAPI";
-import { setProfileInfo } from "../../../../redux/profile-reducer";
+import { setProfileInfo } from "../../../../redux/profile-reducer.ts";
 import ProfileInfo from "./ProfileInfo";
 
 const ProfileInfoContainer = (props) => {

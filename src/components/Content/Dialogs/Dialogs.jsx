@@ -1,6 +1,5 @@
 import React from "react";
 import DialogListContainer from "./DialogList/DialogListContainer";
-import DialogMessages from "./DialogMessages/DialogMessages";
 import DialogMessagesContainer from "./DialogMessages/DialogMessagesContainer";
 
 import './Dialogs.css'

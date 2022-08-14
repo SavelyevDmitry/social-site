@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 import { connect } from "react-redux";
-import { toggleUserInProgress, getUsers, setFollow, setUnfollow } from "../../../../redux/users-reducer";
+import { toggleUserInProgress, getUsers, setFollow, setUnfollow } from "../../../../redux/users-reducer.ts";
 import UsersList from "./UsersList";
 
 const UsersListContainer = (props) => {

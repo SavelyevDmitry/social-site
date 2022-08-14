@@ -8,7 +8,28 @@ const UNFOLLOW = 'UNFOLLOW';
 const SET_IS_LOADING = "SET-IS-LOADING";
 const TOGGLE_USER_IN_PROGRESS = 'TOGGLE-USER-IN-PROGRESS';
 
-const initialState = {
+type UserType = {
+  followed: boolean
+  id: number
+  name: string
+  photos: {
+    small: string 
+    large: string
+  }
+  status: string | null
+  uniqueUrlName: string | null
+}
+
+type UsersStateType = {
+  users: Array<UserType>,
+  pageSize: number
+  totalUsersCount: number
+  currentPage: number
+  isLoading: boolean
+  usersInProgress: Array<number>
+}
+
+const initialState: UsersStateType = {
   users: [],
   pageSize: 20,
   totalUsersCount: 0,
@@ -17,7 +38,7 @@ const initialState = {
   usersInProgress: []
 }
 
-const usersReducer = (state = initialState, action) => {
+const usersReducer = (state = initialState, action: any): UsersStateType => {
   switch (action.type) {
 
     case SET_USERS: 
@@ -63,7 +84,7 @@ const usersReducer = (state = initialState, action) => {
         ...state,
         usersInProgress: action.isLoading
           ? [...state.usersInProgress, action.userId]
-          : state.usersInProgress.filter(id => id != action.userId)
+          : state.usersInProgress.filter(id => id !== action.userId)
       }
 
     case SET_IS_LOADING:
@@ -77,16 +98,51 @@ const usersReducer = (state = initialState, action) => {
   }
 }
 
-export const setUsers= (users) => ( { type: SET_USERS, users} )
-export const clearUsers = () => ( { type: CLEAR_USERS } )
-export const follow = (userId) => ( { type: FOLLOW, userId } )
-export const unfollow = (userId) => ( { type: UNFOLLOW, userId } )
-export const setCurrentPage = (newCurrentPage) => ( { type: SET_CURRENT_PAGE, newCurrentPage } )
-export const setIsLoading = (isLoading) => ( { type: SET_IS_LOADING, isLoading } )
-export const toggleUserInProgress = (isLoading, userId) => ( { type: TOGGLE_USER_IN_PROGRESS, isLoading, userId } )
+type SetUsersActionType = {
+  type: typeof SET_USERS 
+  users: Array<UserType>
+}
 
-export const getUsers = (currentPage, pageSize) => {
-  return (dispatch) => {
+type ClearUsersActionType = {
+  type: typeof CLEAR_USERS
+}
+
+type FollowActionType = {
+  type: typeof FOLLOW
+  userId: number
+}
+
+type UnfollowActionType = {
+  type: typeof UNFOLLOW
+  userId: number
+}
+
+type SetCurrentPageActionType = {
+  type: typeof SET_CURRENT_PAGE
+  newCurrentPage: number
+}
+
+type SetIsLoadingActionType = {
+  type: typeof SET_IS_LOADING
+  isLoading: boolean
+}
+
+type ToggleUserInProgressActionType = {
+  type: typeof TOGGLE_USER_IN_PROGRESS
+  isLoading: boolean
+  userId: number
+}
+
+export const setUsers = (users: Array<UserType>): SetUsersActionType => ( { type: SET_USERS, users} )
+export const clearUsers = (): ClearUsersActionType => ( { type: CLEAR_USERS } )
+export const follow = (userId: number): FollowActionType => ( { type: FOLLOW, userId } )
+export const unfollow = (userId: number): UnfollowActionType => ( { type: UNFOLLOW, userId } )
+export const setCurrentPage = (newCurrentPage: number): SetCurrentPageActionType => ( { type: SET_CURRENT_PAGE, newCurrentPage } )
+export const setIsLoading = (isLoading: boolean): SetIsLoadingActionType => ( { type: SET_IS_LOADING, isLoading } )
+export const toggleUserInProgress = (isLoading: boolean, userId: number): ToggleUserInProgressActionType => ( { type: TOGGLE_USER_IN_PROGRESS, isLoading, userId } )
+
+export const getUsers = (currentPage: number, pageSize: number) => {
+  return (dispatch: any) => {
     dispatch( setIsLoading(true) );
     UsersAPI.getUsers(currentPage, pageSize)
       .then(data => {
@@ -96,8 +152,8 @@ export const getUsers = (currentPage, pageSize) => {
   }
 }
 
-export const setFollow = (userId) => {
-  return (dispatch) => {
+export const setFollow = (userId: number) => {
+  return (dispatch: any) => {
     dispatch( toggleUserInProgress(true, userId) );
     UsersAPI.setFollow(userId)
       .then(resultCode => {
@@ -107,8 +163,8 @@ export const setFollow = (userId) => {
   } 
 }
 
-export const setUnfollow = (userId) => {
-  return (dispatch) => {
+export const setUnfollow = (userId: number) => {
+  return (dispatch: any) => {
     dispatch( toggleUserInProgress(true, userId) );
     UsersAPI.setUnfollow(userId)
       .then(resultCode => {

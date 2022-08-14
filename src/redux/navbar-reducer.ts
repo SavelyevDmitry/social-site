@@ -1,4 +1,14 @@
-const initialState = {
+type LinkType = {
+  id: number
+  text: string
+  link: string
+}
+
+type NavbarStateType = {
+  links: Array<LinkType>
+}
+
+const initialState: NavbarStateType = {
   links: [
     { id: 1, text: "Profile", link: "/profile" },
     { id: 2, text: "Messages", link: "/dialogs" },
@@ -9,7 +19,7 @@ const initialState = {
   ]
 }
 
-const navbarReducer = (state = initialState, action) => {
+const navbarReducer = (state = initialState, action: any): NavbarStateType => {
   switch (action.type) {
 
     default:

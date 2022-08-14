@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { authAPI } from "../../api/authAPI";
 import './Header.css';
 import LogoSvg from "./LogoSvg/LogoSvg.jsx";
 

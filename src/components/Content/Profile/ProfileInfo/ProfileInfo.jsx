@@ -1,5 +1,4 @@
 import React from "react";
-import { profileAPI } from "../../../../api/profileAPI";
 import userPhoto from '../../../../assets/img/user/user-avatar.jpg';
 import './ProfileInfo.css';
 

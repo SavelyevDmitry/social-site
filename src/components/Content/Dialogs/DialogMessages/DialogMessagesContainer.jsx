@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux/es/exports";
 
-import { sendMessageActionCreator, updateNewMessageTextActionCreator } from "../../../../redux/dialogs-reduces";
+import { sendMessageActionCreator, updateNewMessageTextActionCreator } from "../../../../redux/dialogs-reduces.ts";
 
 import DialogMessages from "./DialogMessages";
 

@@ -1,7 +1,23 @@
 const SEND_MESSAGE = 'SEND-MESSAGE';
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
 
-const initialState = {
+type DialogType = {
+  id: number
+  personName: string
+}
+
+type MessageType = {
+  id: number,
+  body: string
+}
+
+type DialogsStateType = {
+  dialogs: Array<DialogType>
+  messages: Array<MessageType>
+  newMessageText: string
+}
+
+const initialState: DialogsStateType = {
   dialogs: [
     { id: 1, personName: "Dmitry Ivanov" },
     { id: 2, personName: "Marina Petrova" },
@@ -18,7 +34,7 @@ const initialState = {
   newMessageText: '',  
 }
 
-const dialogsReducer = (state = initialState, action) => {
+const dialogsReducer = (state = initialState, action: any): DialogsStateType => {
 
   switch (action.type) {
 
@@ -47,12 +63,16 @@ const dialogsReducer = (state = initialState, action) => {
   }
 }
 
-export const sendMessageActionCreator = () => (
-  { type: SEND_MESSAGE }
-)
+type SendMessageActionType = {
+  type: typeof SEND_MESSAGE
+}
 
-export const updateNewMessageTextActionCreator = (newText) => (
-  { type: UPDATE_NEW_MESSAGE_TEXT, newText: newText }
-)
+type UpdateNewMessageTextActionType = {
+  type: typeof UPDATE_NEW_MESSAGE_TEXT
+  newText: string
+}
+
+export const sendMessageActionCreator = (): SendMessageActionType => ( { type: SEND_MESSAGE } )
+export const updateNewMessageTextActionCreator = (newText: string): UpdateNewMessageTextActionType => ( { type: UPDATE_NEW_MESSAGE_TEXT, newText: newText } )
 
 export default dialogsReducer;

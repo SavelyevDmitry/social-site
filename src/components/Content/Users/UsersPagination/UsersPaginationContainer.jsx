@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setCurrentPage, getUsers } from "../../../../redux/users-reducer";
+import { setCurrentPage, getUsers } from "../../../../redux/users-reducer.ts";
 import UsersPagination from "./UsersPagination";
 
 const UsersPaginationContainer = (props) => {

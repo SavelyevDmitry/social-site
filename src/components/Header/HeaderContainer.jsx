@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { authAPI } from "../../api/authAPI";
-import { setUser } from "../../redux/auth-reducer";
+import { setUser } from "../../redux/auth-reducer.ts";
 import Header from "./Header";
 import './Header.css';
 

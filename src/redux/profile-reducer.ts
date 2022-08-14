@@ -2,7 +2,29 @@ const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_PROFILE_INFO = 'SET-PROFILE-INFO';
 
-const initialState = {
+type ProfileType = {
+  fullName: string | null
+  photos: {
+    small: string | null
+    large: string | null
+  }
+  aboutMe: string | null
+}
+
+type PostType = {
+  id: number
+  message: string
+  who: string
+  likeCounter: number
+}
+
+type ProfileStateType = {
+  profile: ProfileType
+  posts: Array<PostType>
+  newPostText: string
+}
+
+const initialState: ProfileStateType = {
   profile: {
     fullName: null,
     photos: {
@@ -20,7 +42,7 @@ const initialState = {
   newPostText: '',
 }
 
-const profileReducer = (state = initialState, action) => {
+const profileReducer = (state = initialState, action: any): ProfileStateType => {
   switch (action.type) {
 
     // Добавление нового поста в Profile
@@ -56,16 +78,22 @@ const profileReducer = (state = initialState, action) => {
   }
 }
 
-export const addPostActionCreator = () => (
-  { type: ADD_POST } 
-)
+type AddPostActionType = {
+  type: typeof ADD_POST
+}
 
-export const updateNewPostTextActionCreator = (newText) => (
-  { type: UPDATE_NEW_POST_TEXT, newText: newText }
-)
+type UpdateNewPostTextActionType = {
+  type: typeof UPDATE_NEW_POST_TEXT, 
+  newText: string
+}
 
-export const setProfileInfo = (profile) => (
-  { type: SET_PROFILE_INFO, profile }
-)
+type SetProfileInfoActionType = {
+  type: typeof SET_PROFILE_INFO, 
+  profile: ProfileType
+}
+
+export const addPostActionCreator = (): AddPostActionType => ( { type: ADD_POST } )
+export const updateNewPostTextActionCreator = (newText: string): UpdateNewPostTextActionType => ( { type: UPDATE_NEW_POST_TEXT, newText: newText } )
+export const setProfileInfo = (profile: ProfileType): SetProfileInfoActionType => ( { type: SET_PROFILE_INFO, profile } )
 
 export default profileReducer;

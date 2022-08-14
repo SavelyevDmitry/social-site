@@ -1,5 +1,4 @@
 import React from "react";
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import ProfilePosts from "./ProfilePosts/ProfilePosts";
 import './Profile.css'
 import ProfileInfoContainer from "./ProfileInfo/ProfileInfoContainer";
