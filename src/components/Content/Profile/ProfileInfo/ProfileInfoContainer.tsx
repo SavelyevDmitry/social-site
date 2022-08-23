@@ -9,6 +9,7 @@ import { TAppState } from "../../../../redux/store";
 import { TProfile } from "../../../../types/types";
 
 import ProfileInfo from "./ProfileInfo";
+import { getProfile } from './../../../../redux/selectors/profile-selector';
 
 type TProps = {
   profile: TProfile
@@ -34,7 +35,7 @@ const ProfileInfoContainer: FC<TProps> = (props) => {
 const mapStateToProps = (state:TAppState) => {
 
   return {
-    profile: state.profilePage.profile
+    profile: getProfile(state)
   }
 }
 

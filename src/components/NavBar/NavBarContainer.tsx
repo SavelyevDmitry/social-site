@@ -3,10 +3,11 @@ import NavBar from "./NavBar";
 
 import { connect } from "react-redux/es/exports";
 import { TAppState } from "../../redux/store";
+import { getLinks } from './../../redux/selectors/navbar-selector';
 
 const mapStateToProps = (state: TAppState) => {
   return {
-    links: state.navbar.links
+    links: getLinks(state)
   }
 }
 

@@ -1,3 +1,4 @@
+import { TUserAuth } from "../types/types";
 import { instance } from "./instance";
 
 export const authAPI = {

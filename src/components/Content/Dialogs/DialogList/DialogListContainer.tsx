@@ -1,12 +1,12 @@
-import React from "react";
 import { connect } from "react-redux/es/exports";
 import { TAppState } from "../../../../redux/store";
-
+import { getDialogs } from './../../../../redux/selectors/dialogs-selector';
 import DialogList from "./DialogList";
+
 
 const mapStateToProps = (state:TAppState) => {
   return {
-    dialogs: state.dialogsPage.dialogs
+    dialogs: getDialogs(state)
   }
 }
 

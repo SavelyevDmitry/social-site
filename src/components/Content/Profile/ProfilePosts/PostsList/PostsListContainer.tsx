@@ -1,12 +1,11 @@
-import React from "react";
-
 import { connect } from "react-redux";
 import { TAppState } from "../../../../../redux/store";
 import PostsList from "./PostsList";
+import { getPosts } from './../../../../../redux/selectors/profile-selector';
 
 const mapStateToProps = (state: TAppState) => {
   return {
-    posts: state.profilePage.posts,
+    posts: getPosts(state)
   }
 }
 
