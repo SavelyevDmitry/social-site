@@ -1,3 +1,4 @@
+import { Dispatch } from 'redux';
 import { authAPI } from '../../api/authAPI'
 import { TUserAuth } from '../../types/types';
 
@@ -5,6 +6,7 @@ const SET_USER_AUTH = 'SET-USER-AUTH';
 
 type AuthStateType = {
   user: TUserAuth
+  isAuth: boolean
 }
 
 const initialState: AuthStateType = {
@@ -12,7 +14,8 @@ const initialState: AuthStateType = {
     login: null,
     id: null,
     email: null
-  }
+  },
+  isAuth: false
 }
   
 const authReducer = (state = initialState, action: any): AuthStateType => {
@@ -24,6 +27,7 @@ const authReducer = (state = initialState, action: any): AuthStateType => {
           ...state.user,
           ...action.user
         },
+        isAuth: true
       }
     default:
       return state;
@@ -39,15 +43,14 @@ export const setUserAuth = (user: TUserAuth): setUserAuthActionType => (
   { type: SET_USER_AUTH, user }
 )
 
-export const setUser = () => {
-  return (dispatch: any) => {
-    authAPI.AuthMe()
-      .then(data => {
-        if (!data.resultCode) {
-          dispatch( setUserAuth(data.user) );
-        }
-      })
-  }
+export const setUser = () => (dispatch: Dispatch) => {
+  return authAPI.AuthMe()
+    .then(data => {
+      if (!data.resultCode) {
+        dispatch( setUserAuth(data.user) );
+      }
+    })
 }
+
 
 export default authReducer;

@@ -8,8 +8,10 @@ import News from "./News/News";
 import Profile from "./Profile/Profile";
 import Settings from "./Settings/Settings";
 import Users from "./Users/Users";
+import Login from './Login/Login';
 
 import './Content.css';
+
 
 const Content = () => {
 
@@ -23,6 +25,7 @@ const Content = () => {
         <Route path = '/news' element = { <News /> } />
         <Route path = '/users' element = { <Users /> } />
         <Route path = '/settings' element = { <Settings /> } />
+        <Route path = '/login' element = { <Login /> } />
       </Routes>
     </div>
   )

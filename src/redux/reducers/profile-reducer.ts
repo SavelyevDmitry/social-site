@@ -1,4 +1,6 @@
+import { Dispatch } from "redux";
 import { TPost, TProfile } from "../../types/types";
+import { profileAPI } from './../../api/profileAPI';
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
@@ -94,5 +96,14 @@ type SetProfileInfoActionType = {
 export const addPost = (): AddPostActionType => ( { type: ADD_POST } )
 export const updateNewPostText = (newText: string): UpdateNewPostTextActionType => ( { type: UPDATE_NEW_POST_TEXT, newText: newText } )
 export const setProfileInfo = (profile: TProfile): SetProfileInfoActionType => ( { type: SET_PROFILE_INFO, profile } )
+
+export const getUserInfo = (userId: number) => (dispatch: Dispatch) => {
+
+  profileAPI.getUserInfo(userId)
+    .then((profile: TProfile) => {
+      debugger;
+      dispatch(setProfileInfo(profile));
+    });
+}
 
 export default profileReducer;

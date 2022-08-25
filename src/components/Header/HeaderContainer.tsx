@@ -5,6 +5,7 @@ import { TAppState } from "../../redux/store";
 import { TUserAuth } from "../../types/types";
 import Header from "./Header";
 import './Header.css';
+import { getUserAuth } from './../../redux/selectors/auth-selector';
 
 type TProps = {
   user: TUserAuth
@@ -13,14 +14,12 @@ type TProps = {
 
 const HeaderContainer: FC<TProps> = ({ user, setUser }) => {
 
-  useEffect(setUser, []);
-
   return <Header user = { user }/>
 }
 
 const mapStateToProps = (state: TAppState) => {
   return {
-    user: state.auth.user,
+    user: getUserAuth(state)
   }
 }
 

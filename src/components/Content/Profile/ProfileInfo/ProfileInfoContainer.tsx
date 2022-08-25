@@ -2,8 +2,7 @@ import React, { FC, useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams } from 'react-router-dom';
 
-import { profileAPI } from "../../../../api/profileAPI";
-import { setProfileInfo } from "../../../../redux/reducers/profile-reducer";
+import { getUserInfo } from "../../../../redux/reducers/profile-reducer";
 
 import { TAppState } from "../../../../redux/store";
 import { TProfile } from "../../../../types/types";
@@ -14,20 +13,15 @@ import { getProfile } from './../../../../redux/selectors/profile-selector';
 type TProps = {
   profile: TProfile
 
-  setProfileInfo: (profile: TProfile) => void
+  getUserInfo: (userId: number) => void
 }
 
 const ProfileInfoContainer: FC<TProps> = (props) => {
   const { userId } = useParams();
 
-  const getUSerInfo = () => {
-    profileAPI.getUserInfo(userId)
-      .then(data => {
-        props.setProfileInfo(data);
-      });
-  }
-
-  useEffect(getUSerInfo, []);
+  useEffect(() => {
+    props.getUserInfo(Number(userId))
+  }, []);
 
   return <ProfileInfo profile = { props.profile } />
 }
@@ -39,4 +33,4 @@ const mapStateToProps = (state:TAppState) => {
   }
 }
 
-export default connect(mapStateToProps, { setProfileInfo })(ProfileInfoContainer);
+export default connect(mapStateToProps, { getUserInfo })(ProfileInfoContainer);

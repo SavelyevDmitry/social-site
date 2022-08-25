@@ -1,5 +1,6 @@
 import { TUser } from './../../types/types';
 import { UsersAPI } from "../../api/usersAPI";
+import { Dispatch } from 'redux';
 
 const SET_USERS = 'SET-USERS';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
@@ -135,28 +136,29 @@ export const requestUsers = (currentPage: number, pageSize: number) => {
     dispatch( setIsLoading(true) );
     UsersAPI.getUsers(currentPage, pageSize)
       .then(data => {
+        debugger
         dispatch( setIsLoading(false) );
         dispatch( setUsers(data.items) );
       })
   }
 }
 
-export const setFollow = (userId: number) => (dispatch: any) => {
+export const setFollow = (userId: number) => (dispatch: Dispatch) => {
   dispatch( toggleUserInProgress(true, userId) );
   
   UsersAPI.setFollow(userId)
-    .then(resultCode => {
+    .then((resultCode: number) => {
       !resultCode ? dispatch( follow(userId) ) : console.log(resultCode);
       dispatch( toggleUserInProgress(false, userId) );
     })
 } 
 
 
-export const setUnfollow = (userId: number) => (dispatch: any) => {
+export const setUnfollow = (userId: number) => (dispatch: Dispatch) => {
   dispatch( toggleUserInProgress(true, userId) );
 
   UsersAPI.setUnfollow(userId)
-    .then(resultCode => {
+    .then((resultCode: number) => {
       !resultCode ? dispatch( unfollow(userId) ) : console.log(resultCode);
       dispatch( toggleUserInProgress(false, userId) );
   })

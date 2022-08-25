@@ -1,5 +1,6 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import thunkMiddleware from 'redux-thunk';
+import appReducer from "./reducers/app-reducer";
 
 import authReducer from './reducers/auth-reducer';
 import dialogsReducer from "./reducers/dialogs-reduces";
@@ -12,7 +13,8 @@ const reducers = combineReducers({
   dialogsPage: dialogsReducer,
   navbar: navbarReducer,
   usersPage: usersReducer,
-  auth: authReducer
+  auth: authReducer,
+  app: appReducer
 })
 
 type TReducer = typeof reducers;
