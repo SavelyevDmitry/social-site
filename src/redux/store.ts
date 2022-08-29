@@ -1,4 +1,4 @@
-import { applyMiddleware, combineReducers, createStore } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
 import thunkMiddleware from 'redux-thunk';
 import appReducer from "./reducers/app-reducer";
 
@@ -8,19 +8,21 @@ import navbarReducer from "./reducers/navbar-reducer";
 import profileReducer from "./reducers/profile-reducer";
 import usersReducer from "./reducers/users-reducer";
 
-const reducers = combineReducers({
-  profilePage: profileReducer,
-  dialogsPage: dialogsReducer,
-  navbar: navbarReducer,
-  usersPage: usersReducer,
-  auth: authReducer,
-  app: appReducer
+
+// const store = createStore(reducers, applyMiddleware(thunkMiddleware));
+const store = configureStore({
+  reducer: {
+    profilePage: profileReducer,
+    dialogsPage: dialogsReducer,
+    navbar: navbarReducer,
+    usersPage: usersReducer,
+    auth: authReducer,
+    app: appReducer
+  },
+  middleware: [ thunkMiddleware ]
 })
 
-type TReducer = typeof reducers;
-export type TAppState = ReturnType<TReducer>;
-
-const store = createStore(reducers, applyMiddleware(thunkMiddleware));
+export type TAppState = ReturnType<typeof store.getState>;
 
 // @ts-ignore
 window.store = store;

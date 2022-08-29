@@ -5,31 +5,34 @@ import { useParams } from 'react-router-dom';
 import { getUserInfo } from "../../../../redux/reducers/profile-reducer";
 
 import { TAppState } from "../../../../redux/store";
-import { TProfile } from "../../../../types/types";
+import { TProfile, TUserAuth } from "../../../../types/types";
 
 import ProfileInfo from "./ProfileInfo";
 import { getProfile } from './../../../../redux/selectors/profile-selector';
+import { getUserAuth } from "../../../../redux/selectors/auth-selector";
 
 type TProps = {
   profile: TProfile
+  user: TUserAuth
 
   getUserInfo: (userId: number) => void
 }
 
-const ProfileInfoContainer: FC<TProps> = (props) => {
-  const { userId } = useParams();
+const ProfileInfoContainer: FC<TProps> = ({ profile, user, getUserInfo }) => {
+  let { userId } = useParams();
 
   useEffect(() => {
-    props.getUserInfo(Number(userId))
-  }, []);
+    userId ? getUserInfo(Number(userId)) : getUserInfo(user.id);
+  }, [userId]);
 
-  return <ProfileInfo profile = { props.profile } />
+  return <ProfileInfo profile = { profile } />
 }
 
 const mapStateToProps = (state:TAppState) => {
 
   return {
-    profile: getProfile(state)
+    profile: getProfile(state),
+    user: getUserAuth(state)
   }
 }
 
