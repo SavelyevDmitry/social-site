@@ -101,7 +101,6 @@ export const getUserInfo = (userId: number) => (dispatch: Dispatch) => {
 
   profileAPI.getUserInfo(userId)
     .then((profile: TProfile) => {
-      debugger;
       dispatch(setProfileInfo(profile));
     });
 }

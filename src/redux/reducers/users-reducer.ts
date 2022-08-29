@@ -1,14 +1,16 @@
 import { TUser } from './../../types/types';
 import { UsersAPI } from "../../api/usersAPI";
 import { Dispatch } from 'redux';
+import { TAppState } from '../store';
 
-const SET_USERS = 'SET-USERS';
-const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
-const CLEAR_USERS = 'CLEAR-USERS';
-const FOLLOW = 'FOLLOW';
-const UNFOLLOW = 'UNFOLLOW';
-const SET_IS_LOADING = "SET-IS-LOADING";
-const TOGGLE_USER_IN_PROGRESS = 'TOGGLE-USER-IN-PROGRESS';
+const SET_USERS = '/users/SET-USERS';
+const SET_CURRENT_PAGE = '/users/SET-CURRENT-PAGE';
+const CLEAR_USERS = '/users/CLEAR-USERS';
+const FOLLOW = '/users/FOLLOW';
+const UNFOLLOW = '/users/UNFOLLOW';
+const SET_IS_LOADING = '/users/SET-IS-LOADING';
+const TOGGLE_USER_IN_PROGRESS = '/users/TOGGLE-USER-IN-PROGRESS';
+const SET_TOTAL_USERS_COUNT = '/users/SET-TOTAL-USERS-COUNT';
 
 type UsersStateType = {
   users: Array<TUser>,
@@ -35,6 +37,12 @@ const usersReducer = (state = initialState, action: any): UsersStateType => {
       return {
         ...state,
         users: [ ...action.users ]
+      }
+
+    case SET_TOTAL_USERS_COUNT: 
+      return {
+        ...state,
+        totalUsersCount: action.totalUsersCount
       }
 
     case CLEAR_USERS:
@@ -88,71 +96,50 @@ const usersReducer = (state = initialState, action: any): UsersStateType => {
   }
 }
 
-type SetUsersActionType = { 
-  type: typeof SET_USERS, 
-  users: Array<TUser> 
-}
-export const setUsers = (users: Array<TUser>): SetUsersActionType => ( { type: SET_USERS, users} )
+type TSetUsersAction = { type: typeof SET_USERS, users: Array<TUser> }
+export const setUsers = (users: Array<TUser>): TSetUsersAction => ( { type: SET_USERS, users} )
 
-type ClearUsersActionType = { 
-  type: typeof CLEAR_USERS 
-}
-export const clearUsers = (): ClearUsersActionType => ( { type: CLEAR_USERS } )
+type TClearUsersAction = { type: typeof CLEAR_USERS }
+export const clearUsers = (): TClearUsersAction => ( { type: CLEAR_USERS } )
 
-type FollowActionType = {
-  type: typeof FOLLOW
-  userId: number
-}
+type TFollowAction = {type: typeof FOLLOW, userId: number}
+export const follow = (userId: number): TFollowAction => ( { type: FOLLOW, userId } )
 
-type UnfollowActionType = {
-  type: typeof UNFOLLOW
-  userId: number
-}
+type TUnfollowAction = { type: typeof UNFOLLOW, userId: number}
+export const unfollow = (userId: number): TUnfollowAction => ( { type: UNFOLLOW, userId } )
 
-type SetCurrentPageActionType = {
-  type: typeof SET_CURRENT_PAGE
-  newCurrentPage: number
-}
+type TSetCurrentPageAction = { type: typeof SET_CURRENT_PAGE, newCurrentPage: number}
+export const setCurrentPage = (newCurrentPage: number): TSetCurrentPageAction => ( { type: SET_CURRENT_PAGE, newCurrentPage } )
 
-type SetIsLoadingActionType = {
-  type: typeof SET_IS_LOADING
-  isLoading: boolean
-}
+type TSetIsLoadingAction = { type: typeof SET_IS_LOADING, isLoading: boolean}
+export const setIsLoading = (isLoading: boolean): TSetIsLoadingAction => ( { type: SET_IS_LOADING, isLoading } )
 
-type ToggleUserInProgressActionType = {
-  type: typeof TOGGLE_USER_IN_PROGRESS
-  isLoading: boolean
-  userId: number
-}
+type TToggleUserInProgressAction = { type: typeof TOGGLE_USER_IN_PROGRESS, isLoading: boolean, userId: number }
+export const toggleUserInProgress = (isLoading: boolean, userId: number): TToggleUserInProgressAction => ( { type: TOGGLE_USER_IN_PROGRESS, isLoading, userId } )
 
-export const follow = (userId: number): FollowActionType => ( { type: FOLLOW, userId } )
-export const unfollow = (userId: number): UnfollowActionType => ( { type: UNFOLLOW, userId } )
-export const setCurrentPage = (newCurrentPage: number): SetCurrentPageActionType => ( { type: SET_CURRENT_PAGE, newCurrentPage } )
-export const setIsLoading = (isLoading: boolean): SetIsLoadingActionType => ( { type: SET_IS_LOADING, isLoading } )
-export const toggleUserInProgress = (isLoading: boolean, userId: number): ToggleUserInProgressActionType => ( { type: TOGGLE_USER_IN_PROGRESS, isLoading, userId } )
+type TSetTotalUsersCount = { type: typeof SET_TOTAL_USERS_COUNT, totalUsersCount: number }
+export const setTotalUsersCount = (totalUsersCount: number): TSetTotalUsersCount => ({ type: SET_TOTAL_USERS_COUNT, totalUsersCount }) 
 
-export const requestUsers = (currentPage: number, pageSize: number) => {
-  return (dispatch: any) => {
-    dispatch( setIsLoading(true) );
-    UsersAPI.getUsers(currentPage, pageSize)
-      .then(data => {
-        debugger
-        dispatch( setIsLoading(false) );
-        dispatch( setUsers(data.items) );
-      })
-  }
+export const requestUsers = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+  dispatch( setIsLoading(true) );
+
+  UsersAPI.getUsers(currentPage, pageSize)
+    .then((data: any) => {
+      dispatch( setIsLoading(false) );
+      dispatch( setUsers(data.items) );
+      dispatch( setTotalUsersCount(data.totalCount) )
+    })
 }
 
 export const setFollow = (userId: number) => (dispatch: Dispatch) => {
   dispatch( toggleUserInProgress(true, userId) );
-  
+
   UsersAPI.setFollow(userId)
     .then((resultCode: number) => {
       !resultCode ? dispatch( follow(userId) ) : console.log(resultCode);
       dispatch( toggleUserInProgress(false, userId) );
     })
 } 
-
 
 export const setUnfollow = (userId: number) => (dispatch: Dispatch) => {
   dispatch( toggleUserInProgress(true, userId) );
@@ -164,5 +151,9 @@ export const setUnfollow = (userId: number) => (dispatch: Dispatch) => {
   })
 }
 
+export const changePage = (pageNumber: number, pageSize: number) => (dispatch: Dispatch, getState: () => TAppState) => {
+  dispatch( setCurrentPage(pageNumber) ) ;
+  dispatch( requestUsers(pageNumber, pageSize) as any );
+}
 
 export default usersReducer;
