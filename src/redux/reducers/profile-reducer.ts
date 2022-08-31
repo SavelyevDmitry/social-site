@@ -1,18 +1,20 @@
 import { Dispatch } from "redux";
 import { TPost, TProfile } from "../../types/types";
 import { profileAPI } from './../../api/profileAPI';
+import { ThunkAction } from 'redux-thunk';
+import { TAppState } from "../store";
 
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-const SET_PROFILE_INFO = 'SET-PROFILE-INFO';
+const ADD_POST = '/profile/ADD-POST';
+const UPDATE_NEW_POST_TEXT = '/profile/UPDATE-NEW-POST-TEXT';
+const SET_PROFILE_INFO = '/profile/SET-PROFILE-INFO';
 
-type ProfileStateType = {
-  profile: TProfile
-  posts: Array<TPost>
-  newPostText: string
-}
+type TAddPost = { type: typeof ADD_POST }
+type TUpdateNewPostText = { type: typeof UPDATE_NEW_POST_TEXT, newText: string}
+type TSetProfileInfo = { type: typeof SET_PROFILE_INFO, profile: TProfile }
 
-const initialState: ProfileStateType = {
+type TActions = TAddPost | TUpdateNewPostText | TSetProfileInfo;
+
+const initialState = {
   profile: {
     userId: null,
     lookingForAJob: null,
@@ -33,17 +35,19 @@ const initialState: ProfileStateType = {
       large: null
     },
     aboutMe: null
-  },
+  } as TProfile,
   posts: [
     { id: 1, message: "Привет, я тут!", who: "Дмитрий Савельев", likeCounter: 5 },
     { id: 2, message: "Это мой первый проект на React", who: "Дмитрий Савельев", likeCounter: 8 },
     { id: 3, message: "Все, что случается - к лучшему", who: "Дмитрий Савельев", likeCounter: 15 },
     { id: 4, message: "Hello World!", who: "Дмитрий Савельев", likeCounter: 9 }
-  ],
-  newPostText: '',
+  ] as Array<TPost>,
+  newPostText: '' as string,
 }
 
-const profileReducer = (state = initialState, action: any): ProfileStateType => {
+type ProfileStateType = typeof initialState;
+
+const profileReducer = (state = initialState, action: TActions): ProfileStateType => {
   switch (action.type) {
 
     // Добавление нового поста в Profile
@@ -79,26 +83,11 @@ const profileReducer = (state = initialState, action: any): ProfileStateType => 
   }
 }
 
-type AddPostActionType = {
-  type: typeof ADD_POST
-}
+export const addPost = (): TAddPost => ( { type: ADD_POST } )
+export const updateNewPostText = (newText: string): TUpdateNewPostText => ( { type: UPDATE_NEW_POST_TEXT, newText: newText } )
+export const setProfileInfo = (profile: TProfile): TSetProfileInfo => ( { type: SET_PROFILE_INFO, profile } )
 
-type UpdateNewPostTextActionType = {
-  type: typeof UPDATE_NEW_POST_TEXT, 
-  newText: string
-}
-
-type SetProfileInfoActionType = {
-  type: typeof SET_PROFILE_INFO, 
-  profile: TProfile
-}
-
-export const addPost = (): AddPostActionType => ( { type: ADD_POST } )
-export const updateNewPostText = (newText: string): UpdateNewPostTextActionType => ( { type: UPDATE_NEW_POST_TEXT, newText: newText } )
-export const setProfileInfo = (profile: TProfile): SetProfileInfoActionType => ( { type: SET_PROFILE_INFO, profile } )
-
-export const getUserInfo = (userId: number) => (dispatch: Dispatch) => {
-
+export const getUserInfo = (userId: number): ThunkAction<void, TAppState, unknown, TActions> => (dispatch) => {
   profileAPI.getUserInfo(userId)
     .then((profile: TProfile) => {
       dispatch(setProfileInfo(profile));

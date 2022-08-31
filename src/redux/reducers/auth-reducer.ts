@@ -1,24 +1,37 @@
 import { Dispatch } from 'redux';
+import { ThunkAction } from 'redux-thunk';
 import { authAPI } from '../../api/authAPI'
 import { TUserAuth } from '../../types/types';
+import { TAppState } from '../store';
 
-const SET_USER_AUTH = 'SET-USER-AUTH';
+const SET_USER_AUTH = '/auth/SET-USER-AUTH';
 
-type AuthStateType = {
-  user: TUserAuth
-  isAuth: boolean
+type TResponseAuth = {
+  resultCode: number
+  messages: Array<string>,
+  user: {
+    id: number
+    email: string
+    login: string
+  }
 }
 
-const initialState: AuthStateType = {
+type TSetUserAuth = { type: typeof SET_USER_AUTH, user: TUserAuth};
+
+type TActions = TSetUserAuth;
+
+const initialState = {
   user: {
-    login: null,
-    id: null,
-    email: null
+    login: null as string | null,
+    id: null as number | null,
+    email: null as string | null
   },
   isAuth: false
 }
-  
-const authReducer = (state = initialState, action: any): AuthStateType => {
+
+type AuthStateType = typeof initialState;
+
+const authReducer = (state = initialState, action: TActions): AuthStateType => {
   switch (action.type) {
     case SET_USER_AUTH:
       return {
@@ -34,23 +47,15 @@ const authReducer = (state = initialState, action: any): AuthStateType => {
   }
 }
 
-type setUserAuthActionType = {
-  type: typeof SET_USER_AUTH
-  user: TUserAuth
-}
+export const setUserAuth = (user: TUserAuth): TSetUserAuth => ({ type: SET_USER_AUTH, user });
 
-export const setUserAuth = (user: TUserAuth): setUserAuthActionType => (
-  { type: SET_USER_AUTH, user }
-)
-
-export const setUser = () => (dispatch: Dispatch) => {
+export const setUser = (): ThunkAction<Promise<void>, TAppState, unknown, TActions> => (dispatch) => {
   return authAPI.AuthMe()
-    .then(data => {
+    .then((data: TResponseAuth) => {
       if (!data.resultCode) {
         dispatch( setUserAuth(data.user) );
       }
     })
 }
-
 
 export default authReducer;
