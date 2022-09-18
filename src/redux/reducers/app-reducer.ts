@@ -1,13 +1,8 @@
-import { Dispatch } from "redux";
 import { ThunkAction } from "redux-thunk";
 import { TAppState } from "../store";
 import { setUser } from "./auth-reducer";
 
 const SET_IS_INITIALIZED = "/app/SET-IS-INITIALIZED";
-
-// type AppReducerStateType = {
-//   isInitialized: boolean
-// }
 
 type TSetIsInitialized = { type: typeof SET_IS_INITIALIZED, isInitialized: boolean }
 

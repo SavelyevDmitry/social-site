@@ -9,5 +9,14 @@ export const authAPI = {
           user: response.data.data
         }
       })
+  },
+
+  login(username, password, isRememberMe) {
+    return instance.post('auth/login', {
+      email: username,
+      password: password,
+      rememberMe: isRememberMe,
+      captcha: true
+    }).then(res => res.data)
   }
 }

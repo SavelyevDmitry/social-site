@@ -18,7 +18,12 @@ const Header: FC<TProps> = ({ user }) => {
           <LogoSvg className="header__logo"/>
           <h2 className="header__logo-title">Some-Social-Site</h2>
         </NavLink>
-        <h2 className="header__title"> { user.id ? user.login : <NavLink to="/login">login</NavLink> } </h2>
+        <div>
+          <h2 className="header__title"> 
+            { user.id ? user.login : <NavLink to="/login">login</NavLink> } 
+          </h2>
+          { user.id && <button>Logout</button> }
+        </div>
       </div>
     </header>
   )

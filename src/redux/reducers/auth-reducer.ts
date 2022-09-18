@@ -49,12 +49,19 @@ const authReducer = (state = initialState, action: TActions): AuthStateType => {
 
 export const setUserAuth = (user: TUserAuth): TSetUserAuth => ({ type: SET_USER_AUTH, user });
 
-export const setUser = (): ThunkAction<Promise<void>, TAppState, unknown, TActions> => (dispatch) => {
+export const setUser = (): ThunkAction<Promise<void>, TAppState, unknown, TActions> => dispatch => {
   return authAPI.AuthMe()
     .then((data: TResponseAuth) => {
       if (!data.resultCode) {
         dispatch( setUserAuth(data.user) );
       }
+    })
+}
+
+export const requestLogin = (username: string, password: string, isRememberMe: boolean): ThunkAction<Promise<void>, TAppState, unknown, TActions> => dispatch => {
+  return authAPI.login(username, password, isRememberMe)
+    .then(res => {
+      debugger
     })
 }
 

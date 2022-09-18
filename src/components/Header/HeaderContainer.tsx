@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import { connect } from "react-redux";
 import { setUser } from "../../redux/reducers/auth-reducer";
 import { TAppState } from "../../redux/store";
@@ -9,10 +9,9 @@ import { getUserAuth } from './../../redux/selectors/auth-selector';
 
 type TProps = {
   user: TUserAuth
-  setUser: () => void
 }
 
-const HeaderContainer: FC<TProps> = ({ user, setUser }) => {
+const HeaderContainer: FC<TProps> = ({ user}) => {
 
   return <Header user = { user }/>
 }
