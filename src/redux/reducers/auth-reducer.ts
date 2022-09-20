@@ -1,10 +1,10 @@
-import { Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { authAPI } from '../../api/authAPI'
 import { TUserAuth } from '../../types/types';
 import { TAppState } from '../store';
 
 const SET_USER_AUTH = '/auth/SET-USER-AUTH';
+const CLEAR_USER_AUTH = '/auth/CLEAR-USER';
 
 type TResponseAuth = {
   resultCode: number
@@ -16,9 +16,29 @@ type TResponseAuth = {
   }
 }
 
-type TSetUserAuth = { type: typeof SET_USER_AUTH, user: TUserAuth};
+type TFieldError = {
+  field: string,
+  error: string
+}
+type TResponseLogin = {
+  resultCode: number,
+  messages: Array<string>,
+  data: {
+    userId: number
+  },
+  fieldsErrors: Array<TFieldError>
+}
 
-type TActions = TSetUserAuth;
+type TResponseLogout = {
+  resultCode: number,
+  messages: Array<string>,
+  data: {}
+}
+
+type TSetUserAuth = { type: typeof SET_USER_AUTH, user: TUserAuth};
+type TClearUser = { type: typeof CLEAR_USER_AUTH }
+
+type TActions = TSetUserAuth | TClearUser;
 
 const initialState = {
   user: {
@@ -42,17 +62,30 @@ const authReducer = (state = initialState, action: TActions): AuthStateType => {
         },
         isAuth: true
       }
+
+    case CLEAR_USER_AUTH:
+      return {
+        ...state,
+        user: {
+          login: null,
+          id: null,
+          email: null
+        },
+        isAuth: false
+      }
+
     default:
       return state;
   }
 }
 
 export const setUserAuth = (user: TUserAuth): TSetUserAuth => ({ type: SET_USER_AUTH, user });
+export const clearUser = (): TClearUser => ({ type: CLEAR_USER_AUTH })
 
 export const setUser = (): ThunkAction<Promise<void>, TAppState, unknown, TActions> => dispatch => {
   return authAPI.AuthMe()
     .then((data: TResponseAuth) => {
-      if (!data.resultCode) {
+      if (data.resultCode === 0) {
         dispatch( setUserAuth(data.user) );
       }
     })
@@ -60,9 +93,17 @@ export const setUser = (): ThunkAction<Promise<void>, TAppState, unknown, TActio
 
 export const requestLogin = (username: string, password: string, isRememberMe: boolean): ThunkAction<Promise<void>, TAppState, unknown, TActions> => dispatch => {
   return authAPI.login(username, password, isRememberMe)
-    .then(res => {
-      debugger
+    .then((res: TResponseLogin) => {
+      if(res.resultCode === 0) dispatch ( setUser() );
     })
+}
+
+export const requestLogout = (): ThunkAction<void, TAppState, unknown, TActions> => dispatch => {
+
+  authAPI.logout()
+    .then((res: TResponseLogout) => {
+      if(res.resultCode === 0) dispatch( clearUser() );
+    });
 }
 
 export default authReducer;

@@ -18,5 +18,10 @@ export const authAPI = {
       rememberMe: isRememberMe,
       captcha: true
     }).then(res => res.data)
+  },
+
+  logout() {
+    return instance.delete('auth/login')
+      .then(res => res.data);
   }
 }

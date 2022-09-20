@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from "react";
 import { connect } from "react-redux";
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 
 import { getUserInfo } from "../../../../redux/reducers/profile-reducer";
 
@@ -22,10 +22,18 @@ const ProfileInfoContainer: FC<TProps> = ({ profile, user, getUserInfo }) => {
   let { userId } = useParams();
 
   useEffect(() => {
-    userId ? getUserInfo(Number(userId)) : getUserInfo(user.id);
+    if(userId) {
+      getUserInfo(Number(userId))
+    } else if (user.id){
+      getUserInfo(user.id)
+    }
   }, [userId]);
 
-  return <ProfileInfo profile = { profile } />
+  return (
+    user.id || userId 
+      ? <ProfileInfo profile = { profile } />
+      : <Navigate replace to={'/login'} />
+  )
 }
 
 const mapStateToProps = (state:TAppState) => {

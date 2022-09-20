@@ -5,12 +5,21 @@ import { TUserAuth } from "../../types/types";
 
 import LogoSvg from "./LogoSvg/LogoSvg.jsx";
 import './Header.css';
+import { requestLogout } from "../../redux/reducers/auth-reducer";
+import { useDispatch } from 'react-redux';
 
 type TProps = {
   user: TUserAuth
+  
 }
 
 const Header: FC<TProps> = ({ user }) => {
+  const dispatch = useDispatch();
+
+  const logout = (): void => {
+    dispatch( requestLogout() as any );
+  }
+
   return (
     <header className="header">
       <div className="container header__container">
@@ -22,7 +31,7 @@ const Header: FC<TProps> = ({ user }) => {
           <h2 className="header__title"> 
             { user.id ? user.login : <NavLink to="/login">login</NavLink> } 
           </h2>
-          { user.id && <button>Logout</button> }
+          { user.id && <button onClick={logout}>Logout</button> }
         </div>
       </div>
     </header>

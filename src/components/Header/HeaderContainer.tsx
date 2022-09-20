@@ -11,9 +11,9 @@ type TProps = {
   user: TUserAuth
 }
 
-const HeaderContainer: FC<TProps> = ({ user}) => {
+const HeaderContainer: FC<TProps> = ({ user }) => {
 
-  return <Header user = { user }/>
+  return <Header user = { user } />
 }
 
 const mapStateToProps = (state: TAppState) => {
@@ -22,4 +22,4 @@ const mapStateToProps = (state: TAppState) => {
   }
 }
 
-export default connect(mapStateToProps, { setUser })(HeaderContainer);
+export default connect(mapStateToProps, {})(HeaderContainer);

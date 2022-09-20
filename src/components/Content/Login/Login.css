@@ -1,0 +1,46 @@
+.login__form {
+  margin: 0 auto;
+  padding: 40px 20px;
+
+  max-width: 400px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: white;
+  border-radius: 5px;
+}
+
+.login__input-wrap {
+  margin-bottom: 10px;
+
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.login__input-label {
+  margin-right: 10px;
+
+  width: 15%;
+}
+
+.login__input {
+  width: 80%;
+}
+
+.login__checkbox-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.login__checkbox-label {
+  margin-right: 5px;
+}
+
+.login__checkbox {
+  margin-right: 15px;
+}

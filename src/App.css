@@ -38,6 +38,10 @@
   opacity: 0;
 }
 
+.btn--login {
+  padding: 5px 10px;
+}
+
 .form-text-input {
   padding: 10px;
   margin-right: 10px;
