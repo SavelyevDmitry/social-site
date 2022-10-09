@@ -30,8 +30,13 @@
 
   background-color: rgb(72, 136, 255);
   color: white;
-
   border-radius: 8px;
+
+  transition: background-color 0.3s ease-in;
+}
+
+.btn:hover {
+  background-color: rgb(8, 97, 185);
 }
 
 .btn:disabled {
@@ -40,6 +45,10 @@
 
 .btn--login {
   padding: 5px 10px;
+}
+
+.btn--logout {
+  margin-left: 10px;
 }
 
 .form-text-input {

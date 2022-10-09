@@ -7,6 +7,7 @@ const userPhoto = require('../../../../assets/img/user/user-avatar.jpg');
 
 type TProps = {
   profile: TProfile
+  status: string
 }
 
 const ProfileInfo: FC<TProps> = ({ profile }) => {

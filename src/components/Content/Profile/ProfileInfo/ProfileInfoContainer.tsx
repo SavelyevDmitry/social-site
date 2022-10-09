@@ -31,7 +31,7 @@ const ProfileInfoContainer: FC<TProps> = ({ profile, user, getUserInfo }) => {
 
   return (
     user.id || userId 
-      ? <ProfileInfo profile = { profile } />
+      ? <ProfileInfo status = "" profile = { profile } />
       : <Navigate replace to={'/login'} />
   )
 }
