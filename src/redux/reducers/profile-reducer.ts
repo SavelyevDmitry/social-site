@@ -7,12 +7,14 @@ import { TAppState } from "../store";
 const ADD_POST = '/profile/ADD-POST';
 const UPDATE_NEW_POST_TEXT = '/profile/UPDATE-NEW-POST-TEXT';
 const SET_PROFILE_INFO = '/profile/SET-PROFILE-INFO';
+const SET_PROFILE_STATUS = '/profile/SET-PROFILE-STATUS';
 
 type TAddPost = { type: typeof ADD_POST }
 type TUpdateNewPostText = { type: typeof UPDATE_NEW_POST_TEXT, newText: string}
 type TSetProfileInfo = { type: typeof SET_PROFILE_INFO, profile: TProfile }
+type TSetProfileStatus = { type: typeof SET_PROFILE_STATUS, status: string | null }
 
-type TActions = TAddPost | TUpdateNewPostText | TSetProfileInfo;
+type TActions = TAddPost | TUpdateNewPostText | TSetProfileInfo | TSetProfileStatus;
 
 const initialState = {
   profile: {
@@ -43,6 +45,7 @@ const initialState = {
     { id: 4, message: "Hello World!", who: "Дмитрий Савельев", likeCounter: 9 }
   ] as Array<TPost>,
   newPostText: '' as string,
+  status: null as string | null
 }
 
 type ProfileStateType = typeof initialState;
@@ -72,11 +75,17 @@ const profileReducer = (state = initialState, action: TActions): ProfileStateTyp
         newPostText: action.newText
       };
     
-      case SET_PROFILE_INFO:
-        return {
-          ...state,
-          profile: { ...action.profile }
-        }
+    case SET_PROFILE_INFO:
+      return {
+        ...state,
+        profile: { ...action.profile }
+      }
+
+    case SET_PROFILE_STATUS:
+      return {
+        ...state,
+        status: action.status
+      }
 
     default:
       return state;
@@ -86,6 +95,14 @@ const profileReducer = (state = initialState, action: TActions): ProfileStateTyp
 export const addPost = (): TAddPost => ( { type: ADD_POST } )
 export const updateNewPostText = (newText: string): TUpdateNewPostText => ( { type: UPDATE_NEW_POST_TEXT, newText: newText } )
 export const setProfileInfo = (profile: TProfile): TSetProfileInfo => ( { type: SET_PROFILE_INFO, profile } )
+export const setProfileStatus = (status: string | null): TSetProfileStatus => ( { type: SET_PROFILE_STATUS, status } )
+
+export const getStatus = (userId: number): ThunkAction<void, TAppState, unknown, TActions> => dispatch => {
+  profileAPI.getStatus(userId)
+    .then((status: string | null) => {
+      dispatch( setProfileStatus(status) );
+    })
+}
 
 export const getUserInfo = (userId: number): ThunkAction<void, TAppState, unknown, TActions> => (dispatch) => {
   profileAPI.getUserInfo(userId)

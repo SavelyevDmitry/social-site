@@ -32,11 +32,19 @@
   width: 60%;
 }
 
-.profile-info__about-title {
+.profile-info__title {
   margin: 0;
   margin-bottom: 10px;
 
   font-size: 24px;
+}
+
+.pfofile-info__status {
+  margin: 0;
+  margin-bottom: 15px;
+
+  font-size: 20px;
+  line-height: 1.5;
 }
 
 .pfofile-info__about {

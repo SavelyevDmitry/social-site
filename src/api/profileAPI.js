@@ -8,5 +8,10 @@ export const profileAPI = {
 
   getStatus(userId) {
     return instance.get(`profile/status/${userId}`)
+      .then(response => {
+        if(response.status === 200) {
+          return response.data
+        }
+      })
   }
 }

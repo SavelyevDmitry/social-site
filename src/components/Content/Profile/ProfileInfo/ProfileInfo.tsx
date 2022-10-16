@@ -7,10 +7,10 @@ const userPhoto = require('../../../../assets/img/user/user-avatar.jpg');
 
 type TProps = {
   profile: TProfile
-  status: string
+  status: string | null
 }
 
-const ProfileInfo: FC<TProps> = ({ profile }) => {
+const ProfileInfo: FC<TProps> = ({ status, profile }) => {
   return (
     <div className="profile__info pfofile-info">
       <h2 className="pfofile-info__name">
@@ -23,7 +23,11 @@ const ProfileInfo: FC<TProps> = ({ profile }) => {
         </div>
 
         <div className="profile-info__about-wrap">
-          <h3 className="profile-info__about-title"> About me: </h3>
+          <h3 className="profile-info__title"> Status: </h3>
+          <p className="pfofile-info__status">
+            { status ? status : "This user hasn't status" }
+          </p>
+          <h3 className="profile-info__title"> About me: </h3>
           <p className="pfofile-info__about">
             { profile.aboutMe ? profile.aboutMe : "This user hasn't information about himself" }
           </p>
