@@ -1,16 +1,25 @@
-import { connect } from "react-redux";
-
-import { TAppState } from "../../../../../redux/store";
+import React from "react"
+import { useDispatch, useSelector } from "react-redux";
 
 import { addPost, updateNewPostText } from "../../../../../redux/reducers/profile-reducer";
-
-import PostsForm from "./PostsForm";
 import { getNewPostText } from "../../../../../redux/selectors/profile-selector";
 
-const mapStateToProps = (state: TAppState) => {
-  return {
-    newPostText: getNewPostText(state)
+import PostsForm from "./PostsForm";
+
+const PostsFormContainer = () => {
+  const dispatch = useDispatch();
+
+  const newPostText = useSelector(getNewPostText);
+
+  const addNewPost = () => {
+    dispatch( addPost() );
   }
+
+  const updatePostText = (newText: string) => {
+    dispatch( updateNewPostText(newText) );
+  }
+
+  return <PostsForm addPost = { addNewPost } updateNewPostText = { updatePostText } newPostText = { newPostText }/>
 }
 
-export default connect(mapStateToProps, { addPost, updateNewPostText })(PostsForm);
+export default PostsFormContainer;

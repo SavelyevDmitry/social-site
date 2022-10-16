@@ -1,37 +1,31 @@
-import React, { FC, useEffect } from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useParams } from 'react-router-dom';
 
 import { getStatus, getUserInfo } from "../../../../redux/reducers/profile-reducer";
-
-import { TAppState } from "../../../../redux/store";
-import { TProfile, TUserAuth } from "../../../../types/types";
 
 import ProfileInfo from "./ProfileInfo";
 import { getProfile, getProfileStatus } from './../../../../redux/selectors/profile-selector';
 import { getUserAuth } from "../../../../redux/selectors/auth-selector";
 
-type TProps = {
-  profile: TProfile
-  user: TUserAuth
-  status: string | null
-
-  getStatus: (userId: number) => void
-  getUserInfo: (userId: number) => void
-}
-
-const ProfileInfoContainer: FC<TProps> = ({ status, profile, user, getStatus, getUserInfo }) => {
+const ProfileInfoContainer = () => {
   let { userId } = useParams();
+
+  const profile = useSelector(getProfile);
+  const user = useSelector(getUserAuth);
+  const status = useSelector(getProfileStatus);
+
+  const dispatch = useDispatch();
   
   useEffect(() => {
     if(userId) {
-      getUserInfo(Number(userId));
-      getStatus(Number(userId));
+      dispatch( getUserInfo(Number(userId)) as any);
+      dispatch( getStatus(Number(userId)) as any );
     } else if (user.id){
-      getUserInfo(user.id);
-      getStatus(user.id);
+      dispatch( getUserInfo(user.id) as any );
+      dispatch( getStatus(user.id) as any );
     }
-  }, [userId]);
+  }, [userId, user.id, dispatch]);
 
   return (
     user.id || userId 
@@ -40,13 +34,4 @@ const ProfileInfoContainer: FC<TProps> = ({ status, profile, user, getStatus, ge
   )
 }
 
-const mapStateToProps = (state:TAppState) => {
-
-  return {
-    profile: getProfile(state),
-    user: getUserAuth(state),
-    status: getProfileStatus(state)
-  }
-}
-
-export default connect(mapStateToProps, { getStatus, getUserInfo })(ProfileInfoContainer);
+export default ProfileInfoContainer;

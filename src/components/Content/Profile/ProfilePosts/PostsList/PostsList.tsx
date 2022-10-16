@@ -7,8 +7,8 @@ type TProps = {
   posts: Array<TPost>
 }
 
-const PostsList: FC<TProps> = (props) => {
-  const postElements = props.posts.map( post => <Post key={post.id} post={post}/>)
+const PostsList: FC<TProps> = ({ posts }) => {
+  const postElements = posts.map( post => <Post key={post.id} post={post}/>)
 
   return (
     <ul className="posts__list">
